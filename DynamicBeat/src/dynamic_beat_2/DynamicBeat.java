@@ -22,7 +22,7 @@ public class DynamicBeat extends JFrame{
 		setVisible(true);
 		System.out.println("ddd");
 		
-		introBackground = new ImageIcon(Main.class.getResource("../images/introBackground.jpeg")).getImage();
+		introBackground = new ImageIcon(Main.class.getResource("./images/introBackground.jpg")).getImage();
 		
 		
 	}
