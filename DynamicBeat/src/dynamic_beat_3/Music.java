@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 
 import javazoom.jl.player.Player;
 
+//thread is a small application
 public class Music extends Thread {
 	private Player player;
 	private boolean isLoop;

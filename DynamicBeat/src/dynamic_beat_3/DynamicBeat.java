@@ -24,7 +24,7 @@ public class DynamicBeat extends JFrame{
 		introBackground = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 		
 		Music introMusic = new Music("adventuresHimitsu.mp3", true);
-		introMusic.start();
+		introMusic.start(); // start method of the Thread class calls the run()
 	}
 	
 	public void paint(Graphics g) {
