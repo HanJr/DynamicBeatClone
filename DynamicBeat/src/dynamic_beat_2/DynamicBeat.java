@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+
 public class DynamicBeat extends JFrame{
 
 	private Image screenImage;
@@ -22,9 +23,8 @@ public class DynamicBeat extends JFrame{
 		setVisible(true);
 		System.out.println("ddd");
 		
-		introBackground = new ImageIcon(Main.class.getResource("./images/introBackground.jpg")).getImage();
-		
-		
+		introBackground = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
+
 	}
 	
 	public void paint(Graphics g) {
