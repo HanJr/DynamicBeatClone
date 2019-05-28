@@ -17,13 +17,20 @@ public class DynamicBeat extends JFrame{
 	private Image screenImage;
 	private Graphics screenGraphic;
 	
-	private Image introBackground = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();//왜 여기서는 getImage() 사용하나? class가 무엇인가?
+	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();//왜 여기서는 getImage() 사용하나? class가 무엇인가?
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png"))); //왜 getImage를 사용하지 못할까?
 	
 	private ImageIcon exitButtonBasicImage= new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
 	private ImageIcon exitButtonEnteredImage= new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
+	private ImageIcon mainExitButtonBasicImage= new ImageIcon(Main.class.getResource("../images/mainExitButtonBasic.png"));
+	private ImageIcon mainExitButtonEnteredImage= new ImageIcon(Main.class.getResource("../images/mainExitButtonEntered.png"));
+	private ImageIcon startButtonBasicImage= new ImageIcon(Main.class.getResource("../images/startButtonBasic.png"));
+	private ImageIcon startButtonEnteredImage= new ImageIcon(Main.class.getResource("../images/startButtonEntered.png"));
 	
 	private JButton exitButton = new JButton(exitButtonBasicImage);	
+	private JButton startButton = new JButton(startButtonBasicImage);		
+	private JButton mainExitButton = new JButton(mainExitButtonBasicImage);	
+	
 	
 	int mouseX, mouseY;
 	
@@ -76,7 +83,78 @@ public class DynamicBeat extends JFrame{
 		});
 		
 		add(exitButton);
+
+		startButton.setContentAreaFilled(false); //remove button's default structure
+		startButton.setBorderPainted(false); //remove button's default structure
+		startButton.setFocusPainted(false); //remove button's default structure
+		startButton.setBounds(850, 400, 420, 130);
+		
+		//MouseAdapter뒤에 ()까먹었었음
+		//MouseEvent e 전체 까먹었었음
+		//exitButton과 관련된 코드 전체가 메뉴바보다 전에 와야지, 메뉴바 위에 올라간 것으로 보인다. 왜그러지? 오더가 특이하다.
+		startButton.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+				startButton.setIcon(startButtonEnteredImage);
+				//exitButton = new JButton(exitButtonEnteredImage); 이렇게하면 왜 안될까? 다시 add를 해야하는건가?
+				//내 생각에, variable은 그저 박스일 뿐이고, 저렇게 버튼을 만들면, 아예 새로운 것을 만든는 것과 같다. 매번 새로 만들어질 때 마다, setBound를 할 수는 없지 않나?
+				//mouseClickedSound가 만들어지고 start되서 사용되어진 것을 참조하면 될 것 같다
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				startButton.setIcon(startButtonBasicImage);
+				//exitButton = new JButton(exitButtonBasicImage); 이렇게하면 왜 안될까?				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Music mouseClickedSound = new Music("mouseClickedSound.mp3", false);
+				mouseClickedSound.start();
+				startButton.setVisible(false);// 5번 강좌, 어떻게 스타트 버튼을 구현하나라는 고민이 단 3줄로 해결됌
+				mainExitButton.setVisible(false);
+				background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
+			}
+		});
+		
+		add(startButton);
+		
+		mainExitButton.setContentAreaFilled(false); //remove button's default structure
+		mainExitButton.setBorderPainted(false); //remove button's default structure
+		mainExitButton.setFocusPainted(false); //remove button's default structure
+		mainExitButton.setBounds(850, 530, 420, 130);
+		
+		//MouseAdapter뒤에 ()까먹었었음
+		//MouseEvent e 전체 까먹었었음
+		//exitButton과 관련된 코드 전체가 메뉴바보다 전에 와야지, 메뉴바 위에 올라간 것으로 보인다. 왜그러지? 오더가 특이하다.
+		mainExitButton.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseEntered(MouseEvent e) {
+
+				mainExitButton.setIcon(mainExitButtonEnteredImage);
+				//exitButton = new JButton(exitButtonEnteredImage); 이렇게하면 왜 안될까? 다시 add를 해야하는건가?
+				//내 생각에, variable은 그저 박스일 뿐이고, 저렇게 버튼을 만들면, 아예 새로운 것을 만든는 것과 같다. 매번 새로 만들어질 때 마다, setBound를 할 수는 없지 않나?
+				//mouseClickedSound가 만들어지고 start되서 사용되어진 것을 참조하면 될 것 같다
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				mainExitButton.setIcon(mainExitButtonBasicImage);
+				//exitButton = new JButton(exitButtonBasicImage); 이렇게하면 왜 안될까?				
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Music mouseClickedSound = new Music("mouseClickedSound.mp3", false);
+				mouseClickedSound.start();
 				
+				try {
+					Thread.sleep(300);//try catch가 요구된다. required in syntax. Thread class를 살펴봐야하겠지?
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+				System.exit(0);
+			}
+		});
+		
+		add(mainExitButton);		
 		
 		menuBar.setBounds(0, 0, 1280, 30); // menuBar 위치와 높이 넓이 설정
 		add(menuBar);
@@ -121,7 +199,7 @@ public class DynamicBeat extends JFrame{
 	
 	//The method draws the introBackground to the off-screen image to 
 	public void screenDraw(Graphics g) {
-		g.drawImage(introBackground, 0, 0, null);
+		g.drawImage(background, 0, 0, null);
 		paintComponents(g);//menuBar과 같은것은 역동적이지 않고, 고정되어 어디서든 사용되어지는 것이기 때문에, component로서 그려진다.
 		this.repaint(); //paint() cannot be directly called
 	}
