@@ -479,11 +479,11 @@ public class DynamicBeat extends JFrame{
 			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 			g.drawString(trackList.get(selectedNum).getTitleAndMusician(), 30, 705);
 			g.setColor(Color.BLACK);			
-			g.drawString("S", 342, 609);
-			g.drawString("D", 446, 609);
-			g.drawString("SPACE BAR", 552, 609);
-			g.drawString("K", 814, 609);
-			g.drawString("L", 918, 609);
+			g.drawString("S", 342, 610);
+			g.drawString("D", 446, 610);
+			g.drawString("SPACE BAR", 552, 610);
+			g.drawString("K", 814, 610);
+			g.drawString("L", 918, 610);
 		}
 		paintComponents(g);//menuBar과 같은것은 역동적이지 않고, 고정되어 어디서든 사용되어지는 것이기 때문에, component로서 그려진다.
 		this.repaint(); //paint() cannot be directly called
