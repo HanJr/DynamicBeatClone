@@ -1,4 +1,4 @@
-package dynamic_beat_12;
+package dynamic_beat_13;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -108,7 +108,7 @@ public class Game extends Thread{
 	}	
 	
 	public void dropNotes(String titleAndMusic) {
-		Note note = new Note(400, "basic");
+		Note note = new Note(100, "basic");
 		note.drop();
 		note.start();
 		
