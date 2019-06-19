@@ -30,8 +30,7 @@ public class Game extends Thread{
 	public Game(String titleAndMusic, String gameMusicTitle) {
 		this.titleAndMusic = titleAndMusic;
 		gameMusic = new Music(gameMusicTitle, false);
-		gameMusic.start();
-		dropNotes(titleAndMusic);// constructor에 있어야지 변화에 맞추어서 다른 노트를 생성할 수 있다.
+		dropNotes();// constructor에 있어야지 변화에 맞추어서 다른 노트를 생성할 수 있다.
 	}
 	
 	public void drawScreen(Graphics2D g, int selectedNum) {
@@ -107,12 +106,50 @@ public class Game extends Thread{
 		noteRouteWideImage = new ImageIcon(Main.class.getResource("../images/noteRouteWide.png")).getImage();		
 	}	
 	
-	public void dropNotes(String titleAndMusic) {
-		Note note = new Note(400, "basic");
-		note.drop();
-		note.start();
+	public void dropNotes() {
 		
-		noteList.add(note);
+		int i = 0;
+		Beat[] beats = null;
+		int startTime;
+		if(titleAndMusic.equals("OK GO - BEENZINO & E SENS")) {
+			startTime = 1000 - Main.REACH_TIME * 1000;
+			beats = new Beat[] {
+				new Beat(startTime, "S"),
+				new Beat(startTime, "D"),
+				new Beat(startTime, "SPACE"),
+				new Beat(startTime, "K"),
+				new Beat(startTime, "L"),
+			};
+		}
+		else if(titleAndMusic.equals("Beautiful - Crush")) {
+			startTime = 1000;
+			beats = new Beat[] {
+					new Beat(startTime, "S"),
+					new Beat(startTime, "D"),
+					new Beat(startTime, "SPACE"),
+					new Beat(startTime, "K"),
+					new Beat(startTime, "L"),
+			};
+		}
+		else if(titleAndMusic.equals("All of My Life - Park Won")) {
+			startTime = 1000;
+			beats = new Beat[] {
+					new Beat(startTime, "S"),
+					new Beat(startTime, "D"),
+					new Beat(startTime, "SPACE"),
+					new Beat(startTime, "K"),
+					new Beat(startTime, "L"),
+			};
+		}
+		gameMusic.start();
+		while(i < beats.length) {
+			if(beats[i].getTime() <= gameMusic.getTime()) {
+				Note note = new Note(beats[i].getNoteName());
+				note.start();			
+				noteList.add(note);
+				i++;
+			}
+		}
 	}
 	
 	@Override

@@ -75,6 +75,11 @@ public class DynamicBeat extends JFrame{
 	int mouseX, mouseY;
 	
 	public DynamicBeat() {
+		//가장 위쪽으로 트랙리스트를 올린다: 프로그램이 실행 된 후, 위쪽 코드부터 로딩이 이루어지는데, 아직 트랙리스트 로딩이 이루어지지 않은 상황에서, 버튼이 눌리는 것을 방지
+		trackList.add(new Track("okgo_highlight.mp3", "okgo.mp3", "okgoStartImage.jpg", "okgoGameImage.jpg", "OK GO - BEENZINO & E SENS"));
+		trackList.add(new Track("beautifulLife_highlight.mp3", "beautifulLife.mp3", "beautifulLifeStartImage.jpg", "beautifulLifeGameImage.jpg", "Beautiful - Crush"));
+		trackList.add(new Track("allofmylife_highlight.mp3", "allofmylife.mp3", "allofmylifeStartImage.jpg", "allofmylifeGameImage.jpg", "All of My Life - Park Won"));	
+		
 		setUndecorated(true); // 기본 매뉴바 삭제
 		setTitle("Dynamic Beat");
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -87,9 +92,6 @@ public class DynamicBeat extends JFrame{
 
 		addKeyListener(new KeyListener());
 		
-		trackList.add(new Track("okgo_highlight.mp3", "okgo.mp3", "okgoStartImage.jpg", "okgoGameImage.jpg", "OK GO - BEENZINO & E SENS"));
-		trackList.add(new Track("beautifulLife_highlight.mp3", "beautifulLife.mp3", "beautifulLifeStartImage.jpg", "beautifulLifeGameImage.jpg", "Beautiful - Crush"));
-		trackList.add(new Track("allofmylife_highlight.mp3", "allofmylife.mp3", "allofmylifeStartImage.jpg", "allofmylifeGameImage.jpg", "All of My Life - Park Won"));
 
 		introMusic.start(); // start method of the Thread class calls the run()		
 		
@@ -246,6 +248,7 @@ public class DynamicBeat extends JFrame{
 		
 		add(hardButton);
 		
+		//backButton은 Game에서 쓰이지만 DynamicBeat에서 code된다. 왜 그럴까?***************
 		backButton.setContentAreaFilled(false);
 		backButton.setBorderPainted(false);
 		backButton.setFocusPainted(false);
@@ -450,7 +453,7 @@ public class DynamicBeat extends JFrame{
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(selectedNum).getGameImage())).getImage();
 		game = new Game(trackList.get(selectedNum).getTitleAndMusician(), trackList.get(selectedNum).getGameMusic());
 		isGameScreen = true;
-		setFocusable(true);
+		setFocusable(true);// 가장 아래로 내리므로서, 키보드 이벤트가 에러 없이 작동하도록 한다고 한다. 
 	}
 	
 	//paint 메소드를 트리거 하는 방법은 두가지가 있다: 시스템/앱

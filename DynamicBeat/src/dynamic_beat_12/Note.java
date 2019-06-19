@@ -14,20 +14,34 @@ public class Note extends Thread{
 	 *  Main.NOTE_SPEED 에 총 멈춤이 발생하는 횟수를 곱하면, 노트가 1초에 얼마만큼 움직이는지 계산이 가능하다 = 700
 	 *  1초에 700을 움직이는 노트를 갖고있으니, 1초 뒤에 정확히 노트를 580에 있는 판정라인에 떨어뜨리기 위해선, 580 - 700을 함으로서 노트를 화면 바깥에서부터 떨어뜨리는 것이 필요하다.
 	 */
-	private int x, y = 580 - 1000 / Main.SLEEP_TIME * Main.NOTE_SPEED; 
+	private int x, y = 580 - (1000 / Main.SLEEP_TIME * Main.NOTE_SPEED) * Main.REACH_TIME; 
 
 	private String noteType;
 	
-	public Note(int x, String noteType) {
-		this.x = x;
+	public Note(String noteType) {
 		this.noteType = noteType;
+		if(noteType.equals("S")) {
+			x = 302;
+		}
+		else if(noteType.equals("D")) {
+			x = 406;
+		}
+		else if(noteType.equals("SPACE")) {
+			x = 510;
+		}
+		else if(noteType.equals("K")) {
+			x = 774;
+		}
+		else if(noteType.equals("L")) {
+			x = 878;
+		}
 	}
 	
 	public void drawScreen(Graphics2D g) {
-		if(noteType.equals("basic")) {
+		if(!noteType.equals("SPACE")) {
 			g.drawImage(basicNoteImage, x, y, null);
 		}
-		else if(noteType.equals("wide")) {
+		else{
 			g.drawImage(wideNoteImage, x, y, null);
 		}
 	}
