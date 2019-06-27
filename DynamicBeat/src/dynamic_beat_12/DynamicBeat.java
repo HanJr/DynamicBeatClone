@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import dynamic_beat_6.Main;
 
 public class DynamicBeat extends JFrame{
 
@@ -62,8 +61,6 @@ public class DynamicBeat extends JFrame{
 	private Music introMusic = new Music("adventuresHimitsu.mp3", true);
 	
 	private Image selectedImage;
-	
-	private Music gameMusic;	
 	
 
 	
@@ -410,8 +407,6 @@ public class DynamicBeat extends JFrame{
 	}
 	
 	public void backToMain() {
-		if(gameMusic != null)
-			gameMusic.close();
 		
 		isMainScreen = true;
 		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
@@ -451,8 +446,9 @@ public class DynamicBeat extends JFrame{
 		backButton.setVisible(true);
 		isMainScreen = false;		
 		background = new ImageIcon(Main.class.getResource("../images/" + trackList.get(selectedNum).getGameImage())).getImage();
-		game = new Game(trackList.get(selectedNum).getTitleAndMusician(), trackList.get(selectedNum).getGameMusic());
+		game = new Game(trackList.get(selectedNum).getTitleAndMusician(), trackList.get(selectedNum).getGameMusic(), difficulty);
 		isGameScreen = true;
+		game.start();
 		setFocusable(true);// 가장 아래로 내리므로서, 키보드 이벤트가 에러 없이 작동하도록 한다고 한다. 
 	}
 	
