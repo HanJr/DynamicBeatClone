@@ -19,7 +19,7 @@ public class Music extends Thread {
 	public Music(String name, boolean isLoop) {
 		try {
 			this.isLoop = isLoop;
-			file = new File(Main.class.getResource("../musics/"+name).toURI());			
+			file = new File(Main.class.getResource("../musics/"+name).toURI());//getResource() 메소드는 url을 return한다. 그러나 File class는 URL을 argument로 받지 않는다.	
 			fis = new FileInputStream(file);		
 			bis = new  BufferedInputStream(fis);//왜 버퍼가 사용되어야하나?
 			player = new Player(bis);//fis로 바꾸어도 잘 돌아간다.

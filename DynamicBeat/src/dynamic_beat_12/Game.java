@@ -67,12 +67,14 @@ public class Game extends Thread{
 		g.drawString("K", 814, 610);
 		g.drawString("L", 918, 610);
 		
-		g.drawImage(judgeImage, 590, 410, null);
+		g.drawImage(judgeImage, 590, 410, null);//아무것도 없는 transparent이미지를 초반에 넣어줌으로 판정결과가 출력될 수 있는 자리를 마련한다.
 		
+		//지속적으로 노트리스트에 저장된 노트들을 화면에 출력해준다. 판정이된 노트들은 자동적으로 리스트에서 없어진다. 
 		for(int i = 0; i < noteList.size(); i++) {
 			if(noteList.get(i).getY() >= 620) {
 				judgeImage = missJudgeImage.getImage();
 			}
+			
 			if(!noteList.get(i).getIsJudged()) {
 				noteList.get(i).drawScreen(g);//g 안보내도 되나?				
 			}
@@ -242,6 +244,7 @@ public class Game extends Thread{
 			};
 		}
 		gameMusic.start();
+		//게임 시작에 이 메소드가 한번만 사용되어도 괜찮은 이유, 노래의 시간이 끝나기 전까지 노트가 떨어지는 것은 멈추지 않는다.
 		while(i < beats.length) {
 			if(beats[i].getTime() <= gameMusic.getTime()) {
 				Note note = new Note(beats[i].getNoteName());

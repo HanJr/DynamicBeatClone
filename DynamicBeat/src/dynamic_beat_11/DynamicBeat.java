@@ -26,6 +26,7 @@ public class DynamicBeat extends JFrame{
 	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();//왜 여기서는 getImage() 사용하나? class가 무엇인가?
 
 	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png"))); //왜 getImage를 사용하지 못할까?
+	//왜 매뉴바는 JLabel이지?
 	
 	private ImageIcon exitButtonBasicImage= new ImageIcon(Main.class.getResource("../images/exitButtonBasic.png"));
 	private ImageIcon exitButtonEnteredImage= new ImageIcon(Main.class.getResource("../images/exitButtonEntered.png"));
